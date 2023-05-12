@@ -3,7 +3,7 @@ import java.io.*;
 import adminclass.Admin;
 public class CafeManagementSystem{
     static int length,itqty;
-    static double total;
+    static double total,total2;
     static String name,itemsOrdered;
     static int code;
     static double price;
@@ -339,15 +339,17 @@ public class CafeManagementSystem{
             FileWriter userbill = new FileWriter(username+".txt",true);
             double itemaddtotal =+total;
         double gst= itemaddtotal*0.18;
-            userbill.write("Bill for "+username+":\n");
+            userbill.write("Bill for "+username+" :\n");
             userbill.write("--------------------------------------------------------------------\n");
             userbill.write("Items ordered:  "+name+"\n");
             userbill.write("Quantity of "+name+" Ordered:  "+String.valueOf(itqty)+"\n");
             userbill.write("Price of "+name+" per Unit:  "+String.valueOf(price)+"\n");
             userbill.write("GST @18%        :  "+ gst+"\n");
             userbill.write("Price before GST:  "+total+"\n");
-            userbill.write("Final cost      :  "+(total+gst+"\n"));
-        userbill.close();
+
+            total2+= total*1.18;
+
+            userbill.close();
 
 
                         } else {
@@ -431,19 +433,16 @@ public class CafeManagementSystem{
         FileReader fl=new FileReader(userbillread);
         BufferedReader bf=new BufferedReader(fl);
         while((billprint=bf.readLine())!=null){
+
             System.out.println(billprint);
+
         }
+        System.out.println("Net payable Amount  : "+total2);
+        System.out.println("Please pay "+total2+" at the counter!\n");
+
         fl.close();
             userbillread.delete();
             userbillread.createNewFile();
-
-            //close file here
-
-
-        // System.out.println("Cost:"+total);
-       // System.out.println("GST:"+gst);
-        //System.out.println(total1);
-        //System.out.printf("Total cost: %.2f\n", (total+gst));
         System.out.println("Thank you for your order!");
 
     }catch(FileNotFoundException fnf){
